@@ -85,9 +85,9 @@ function Lib:CreateBillboard(TextColor, Name, Model)
     end
 
     BillboardTable.ChangeText = function(Text_)
-        if BillboardTable.Deleted == true or Text == nil then return end
+        if BillboardTable.Deleted == true then return end
  
-        if typeof(Text_) == "string" then Text.Text = Text end
+        if typeof(Text_) == "string" then Text.Text = Text_ end
     end
 
     return BillboardTable
