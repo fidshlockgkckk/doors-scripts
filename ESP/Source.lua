@@ -274,7 +274,7 @@ function Lib:TracerESP(options)
         From = "Center",
 	}, options or {})
     
-    local TracerTable = { Handler = nil }
+    local TracerTable = { Handler = nil, Vis = false }
     if Drawing then
         local Tracer = Drawing.new("Line")
 
@@ -284,7 +284,7 @@ function Lib:TracerESP(options)
         Tracer.Transparency = options["Transparency"]
 
         TracerTable.Handler = RunService.RenderStepped:Connect(function()
-            if options["Model"] ~= nil then
+            if options["Model"] ~= nil and TracerTable.Vis == true then
                 local ScreenPosition, Visible = WorldToViewport(options["Model"].Position);
                 local OPos = Camera.CFrame:pointToObjectSpace(options["Model"].Position);
                 if ScreenPosition.Z < 0 then
@@ -321,7 +321,7 @@ function Lib:TracerESP(options)
                 TracerTable.Handler:Disconnect()
             end
 
-            Tracer.Visible = false
+            pcall(function() Tracer.Visible = false end)
             Tracer:Remove()
 
             table.remove(ESP, table.find(ESP, TracerTable))
@@ -341,7 +341,7 @@ function Lib:TracerESP(options)
         TracerTable.SetVisible = function(Vis)
             if TracerTable.Deleted == true or Tracer == nil then return end
     
-            if typeof(Vis) == "boolean" then Tracer.Visible = Vis end
+            if typeof(Vis) == "boolean" then TracerTable.Vis = Vis end
         end
     else
         TracerTable.Deleted = true;
