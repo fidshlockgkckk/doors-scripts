@@ -47,8 +47,8 @@ end
 function Lib:ClearESP()
 	for _, v in pairs(ESP) do
 		if v then
-            v.Delete()
-        end
+			v.Delete()
+		end
 	end
 end
 
@@ -71,7 +71,8 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 
     BillboardTable.Deleted = false
     BillboardTable.Delete = function()
-        BillboardGui.Delete()
+        BillboardGui.Adornee = nil
+		BillboardGui:Destroy()
 
         BillboardTable.Deleted = true
     end
