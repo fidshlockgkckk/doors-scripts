@@ -138,7 +138,7 @@ function Lib:HighlightESP(options)
     end
 
     HighlightTable.ChangeText = function(Text_)
-        if HighlightTable.Deleted == true or BillboardGui.TextLabel == nil then return end
+        if HighlightTable.Deleted == true then return end
 
         if typeof(Text_) == "string" then BillboardGui.ChangeText(Text_) end
     end
@@ -202,7 +202,7 @@ function Lib:AdornmentESP(options)
     end
 
     AdornmentTable.ChangeText = function(Text_)
-        if AdornmentTable.Deleted == true or BillboardGui.Deleted == false then return end
+        if AdornmentTable.Deleted == true then return end
 
         if typeof(Text_) == "string" then BillboardGui.ChangeText(Text_) end
     end
@@ -256,7 +256,7 @@ function Lib:OutlineESP(options)
     end
 
     OutlineTable.ChangeText = function(Text_)
-        if OutlineTable.Deleted == true or BillboardGui.Deleted == false then return end
+        if OutlineTable.Deleted == true then return end
 
         if typeof(Text_) == "string" then BillboardGui.ChangeText(Text_) end
     end
