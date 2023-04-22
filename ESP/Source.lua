@@ -286,7 +286,7 @@ function Lib:TracerESP(options)
                 local OPos = Camera.CFrame:pointToObjectSpace(options["Model"].Position);
                 if ScreenPosition.Z < 0 then
                     local AT = math.atan2(OPos.Y, OPos.X) + math.pi;
-                    OPos = CFrame.Angles(0, 0, AT):vectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):vectorToWorldSpace(Vector2.new(0, 0, -1))));
+                    OPos = CFrame.Angles(0, 0, AT):vectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):vectorToWorldSpace(Vector3.new(0, 0, -1))));
                 end
                 local Position = WorldToViewport(Camera.CFrame:pointToWorldSpace(OPos));
 
