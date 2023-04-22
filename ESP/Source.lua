@@ -334,10 +334,17 @@ function Lib:TracerESP(options)
                 if typeof(Transparency) == "number" then Tracer.Transparency = Transparency end
             end
         end
+        
+        TracerTable.SetVisible = function(Vis)
+            if TracerTable.Deleted == true or Tracer == nil then return end
+    
+            if typeof(Vis) == "boolean" then Tracer.Visible = Vis end
+        end
     else
         TracerTable.Deleted = true;
         TracerTable.Delete = function()end
         TracerTable.ChangeColor = function()end
+	TracerTable.SetVisible = function()end
     end
 
     table.insert(ESP, TracerTable)
