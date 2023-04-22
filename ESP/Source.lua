@@ -163,7 +163,7 @@ function Lib:AdornmentESP(options)
 	
 	if options["Type"] == "Box" then
 		Adornment = Instance.new("BoxHandleAdornment", ESPAdornments)
-		Adornment.Size = options["Model"].Size * 1.085
+		Adornment.Size = options["Model"].Size
 	elseif options["Type"] == "Cylinder" then
 		Adornment = Instance.new("CylinderHandleAdornment", ESPAdornments)
 		Adornment.Height = options["Model"].Size.Y * 2
