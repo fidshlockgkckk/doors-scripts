@@ -167,12 +167,13 @@ function Lib:AdornmentESP(options)
 		Adornment = Instance.new("CylinderHandleAdornment", ESPAdornments)
 		Adornment.Height = options["Model"].Size.Y * 2
 		Adornment.Radius = options["Model"].Size.X * 1.085
+		Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
 	elseif options["Type"] == "Sphere" then
 		Adornment = Instance.new("SphereHandleAdornment", ESPAdornments)
 		Adornment.Size = options["Model"].Size * 1.085
+		Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
     end
 	
-	Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
 	Adornment.Color3 = options["Color"]
 	Adornment.Transparency = options["Transparency"]
 	Adornment.AlwaysOnTop = true
