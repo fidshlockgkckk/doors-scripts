@@ -80,4 +80,5 @@ local Tracer = ESPLib:TracerESP({
     Tracer.Deleted (boolean)
 
     Tracer.ChangeColor(Color (Color3), Thickness (number), Transparency (number))
+    Tracer.SetVisible(Visible (boolean))
 --]]
