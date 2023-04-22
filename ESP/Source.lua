@@ -64,7 +64,7 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 
 	Text.AnchorPoint = Vector2.new(0.5, 0.5)
 	Text.Size = UDim2.new(1, 0, 0, 20)
-	Text.Position = UDim2.new(0.5, 0, 0.8, 0)
+	Text.Position = UDim2.new(0.5, 0, 0.6, 0)
 	Text.BackgroundTransparency = 1
 	Text.TextColor3 = TextColor
 	Text.Text = Name
