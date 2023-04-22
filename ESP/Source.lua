@@ -171,7 +171,7 @@ function Lib:AdornmentESP(options)
 		Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
 	elseif options["Type"] == "Sphere" then
 		Adornment = Instance.new("SphereHandleAdornment", ESPAdornments)
-		Adornment.Size = options["Model"].Size * 1.085
+		Adornment.Radius = options["Model"].Size.X * 1.085
 		Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
     end
 	
