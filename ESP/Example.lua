@@ -4,15 +4,15 @@ This ESP library is easy to understand, use and get started with. Also, The code
 If you have any problems, contact fishlock#2610 or mstudio#9016 on Discord.
 --]]
 
-local ESPLib = yes
+local ESPLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/fishlockscripts/Doors/main/ESP/Source.lua"))()
 local Billboard = ESPLib:CreateBillboard(Color3.fromRGB(0, 0, 0), "Billboard Example", workspace.Part)
-
+--[[
     Billboard.Delete()
-    Billboard.Deleted (boolean) to check if its deleted
+    Billboard.Deleted (boolean)
 
     Billboard.ChangeColor(TextColor (Color3))
     Billboard.ChangeText(Text (string)) 
-
+--]]
 
 -- Highlights
 local Highlight = ESPLib:HighlightESP({
@@ -24,13 +24,13 @@ local Highlight = ESPLib:HighlightESP({
     FillTransparency = 0, -- The inner highlight transparency
     OutlineTransparency = 0, -- The outline transparency
 })
-
+--[[
     Highlight.Delete() 
     Highlight.Deleted (boolean)
 
     Highlight.ChangeColor(FillColor (Color3), OutlineColor (Color3), FillTransparency (number), OutlineTransparency (number), TextColor (Color3))
     Highlight.ChangeText(Text (string))
-
+--]]
 
 -- Adorments
 local Adornment = ESPLib:AdornmentESP({
@@ -41,13 +41,13 @@ local Adornment = ESPLib:AdornmentESP({
     Transparency = .3, --The adornment transparency
     Type = "Box", -- Box, Cylinder, Sphere
 })
-
+--[[
     Adornment.Delete() 
     Adornment.Deleted (boolean)
 
     Adornment.ChangeColor(Color (Color3), TextColor (Color3))
     Adornment.ChangeText(Text (string))
-
+--]]
 
 -- Outlines
 local Outline = ESPLib:OutlineESP({
@@ -59,13 +59,13 @@ local Outline = ESPLib:OutlineESP({
     OutlineThickness = .04, -- The outline's border thickness
     Transparency = .65,  -- The outline transparency
 })
-
+--[[
     Outline.Delete() 
     Outline.Deleted (boolean)
 
     Outline.ChangeColor(SurfaceColor (Color3), BorderColor (Color3), OutlineThickness (number), Transparency (number), TextColor (Color3))
     Outline.ChangeText(Text (string))
-
+--]]
 
 -- Tracers
 local Tracer = ESPLib:TracerESP({
@@ -75,8 +75,9 @@ local Tracer = ESPLib:TracerESP({
     Transparency = 0.7, -- the line transparency
     From = "Center", -- Center, Bottom, Mouse
 })
-
+--[[
     Tracer.Delete() 
     Tracer.Deleted (boolean)
 
     Tracer.ChangeColor(Color (Color3), Thickness (number), Transparency (number))
+--]]
