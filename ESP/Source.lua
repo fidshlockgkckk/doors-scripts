@@ -72,6 +72,8 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 	
     BillboardTable.Deleted = false
     BillboardTable.Delete = function()
+	if BillboardTable.Deleted == true then return end
+		
         BillboardGui.Adornee = nil
 		BillboardGui:Destroy()
 
@@ -85,13 +87,13 @@ function Lib:CreateBillboard(TextColor, Name, Model)
     end
 
     BillboardTable.ChangeText = function(Text_)
-        --if BillboardTable.Deleted == true then return end
- 
-       -- if typeof(Text_) == "string" then 
-Text.Text = Text_ 
---end
+       	--if BillboardTable.Deleted == true then return end
+       	-- if typeof(Text_) == "string" then 
+		Text.Text = Text_ 
+		--end
     end
-
+	
+	table.insert(ESP, BillboardTable)
     return BillboardTable
 end
 
