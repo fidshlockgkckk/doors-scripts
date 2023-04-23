@@ -11,14 +11,30 @@ _____ ___  ________  ___  ___  ___       ________  ________  ___  __    _______ 
                                     
 --]]
 
-local ESPFolder = Instance.new("Folder", game:GetService("CoreGui"))
-local ESPBillboards = Instance.new("Folder", ESPFolder)
-local ESPAdornments = Instance.new("Folder", ESPFolder)
-local ESPMain = Instance.new("Folder", ESPFolder)
-ESPFolder.Name = "F_ESP_FOLDER"
-ESPBillboards.Name = "F_BILLBOARDS_FOLDER"
-ESPAdornments.Name = "F_ADORNMENTS_FOLDER"
-ESPMain.Name = "F_MAIN_FOLDER"
+local ESPFolder_Name = "F_ESP_FOLDER"
+local ESPMain_Name = "F_MAIN_FOLDER"
+local ESPBillboards_Name = "F_BILLBOARDS_FOLDER"
+local ESPAdornments_Name = "F_ADORNMENTS_FOLDER"
+local ESPFolder = CoreGui:FindFirstChild(ESPFolder_Name)
+if ESPFolder == nil then
+    ESPFolder = Instance.new("Folder", CoreGui)
+    ESPFolder.Name = ESPFolder_Name
+end
+local ESPMain = ESPFolder:FindFirstChild(ESPMain_Name)
+if ESPMain == nil then
+    ESPMain = Instance.new("Folder", ESPFolder)
+    ESPMain.Name = ESPMain_Name
+end
+local ESPBillboards = ESPFolder:FindFirstChild(ESPBillboards_Name)
+if ESPBillboards == nil then
+    ESPBillboards = Instance.new("Folder", ESPFolder)
+    ESPBillboards.Name = ESPBillboards_Name
+end
+local ESPAdornments = ESPFolder:FindFirstChild(ESPAdornments_Name)
+if ESPAdornments == nil then
+    ESPAdornments = Instance.new("Folder", ESPFolder)
+    ESPAdornments.Name = ESPAdornments_Name
+end
 
 --// Variables \\--
 local RunService = game:GetService("RunService")
