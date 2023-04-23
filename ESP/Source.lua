@@ -11,6 +11,7 @@ _____ ___  ________  ___  ___  ___       ________  ________  ___  __    _______ 
                                     
 --]]
 
+local CoreGUI = game:GetService("CoreGui");local CoreGui = CoreGUI
 local ESPFolder_Name = "F_ESP_FOLDER"
 local ESPMain_Name = "F_MAIN_FOLDER"
 local ESPBillboards_Name = "F_BILLBOARDS_FOLDER"
