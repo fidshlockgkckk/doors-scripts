@@ -295,7 +295,7 @@ function Lib:TracerESP(options)
         From = "Center",
 	}, options or {})
     
-    local TracerTable = { Handler = nil, Vis = false }
+    local TracerTable = { Handler = nil, Vis = true }
     if Drawing then
         local Tracer = Drawing.new("Line")
 
