@@ -303,9 +303,10 @@ function Lib:TracerESP(options)
         Tracer.Color = options["Color"]
         Tracer.Thickness = options["Thickness"]
         Tracer.Transparency = options["Transparency"]
-
+		
+        TracerTable.Deleted = false;
         TracerTable.Handler = RunService.RenderStepped:Connect(function()
-            if options["Model"] ~= nil and TracerTable.Vis == true then
+            if options["Model"] ~= nil and TracerTable.Vis == true and TracerTable.Deleted == false then
                 local ScreenPosition, Visible = WorldToViewport(options["Model"].Position);
                 local OPos = Camera.CFrame:pointToObjectSpace(options["Model"].Position);
                 if ScreenPosition.Z < 0 then
@@ -336,17 +337,22 @@ function Lib:TracerESP(options)
             end
         end)
 
-        TracerTable.Deleted = false;
         TracerTable.Delete = function()
-            if TracerTable.Handler then
-                TracerTable.Handler:Disconnect()
-            end
-
-            pcall(function() Tracer.Visible = false end)
-            Tracer:Remove()
+            pcall(function() 
+				Tracer.Visible = false 
+				Tracer:Remove()
+			end)
 
             table.remove(ESP, table.find(ESP, TracerTable))
             TracerTable.Deleted = true
+			if TracerTable.Handler then 
+				TracerTable.Handler:Disconnect() 
+				
+				pcall(function() 
+					Tracer.Visible = false 
+					Tracer:Remove()
+				end)
+			end
         end
 
         TracerTable.ChangeColor = function(Color, Thickness, Transparency)
