@@ -331,7 +331,7 @@ function Lib:TracerESP(options)
                 Tracer.Visible = false
                 Tracer:Remove()
             end)
-            if e then warn("Failed to delete Tracer:")warn(e) end
+            if e and not tostring(e):lower():match("render object destroyed") then warn("Failed to delete Tracer:")warn(e) end
 
             table.remove(ESP, table.find(ESP, TracerTable))
             TracerTable.Deleted = true
