@@ -321,21 +321,18 @@ function Lib:TracerESP(options)
 
         TracerTable.Delete = function()
             options["Model"] = nil
-            task.wait(0.05)
+            task.wait()
             pcall(function()
+                Tracer.Visible = false
+                Tracer:Remove()
+                TracerTable.Handler:Disconnect()
+                -- double check to make sure its deleted
                 Tracer.Visible = false
                 Tracer:Remove()
             end)
 
             table.remove(ESP, table.find(ESP, TracerTable))
             TracerTable.Deleted = true
-            if TracerTable.Handler then
-                TracerTable.Handler:Disconnect()
-            end
-            pcall(function()
-                Tracer.Visible = false
-                Tracer:Remove()
-            end)
         end
 
         TracerTable.ChangeColor = function(Color, Thickness, Transparency)
