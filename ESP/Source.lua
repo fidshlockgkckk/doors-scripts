@@ -322,7 +322,8 @@ function Lib:TracerESP(options)
         TracerTable.Delete = function()
             options["Model"] = nil
             task.wait()
-            pcall(function()
+            
+            local s,e = pcall(function()
                 Tracer.Visible = false
                 Tracer:Remove()
                 TracerTable.Handler:Disconnect()
@@ -330,6 +331,7 @@ function Lib:TracerESP(options)
                 Tracer.Visible = false
                 Tracer:Remove()
             end)
+            if e then warn("Failed to delete Tracer:")warn(e) end
 
             table.remove(ESP, table.find(ESP, TracerTable))
             TracerTable.Deleted = true
