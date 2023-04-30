@@ -123,14 +123,14 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 		if PrimPart then
 			BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
 				if PrimPart and PrimPart.Position and DistanceText then
-					DistanceText.Text = "[".. game.Players.LocalPlayer:DistanceFromCharacter(PrimPart.Position) .. "]"
+					DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(PrimPart.Position)) .. "]"
 				end
 			end)
 		end
 	else
 		BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
 			if Model and Model.Position and DistanceText then
-				DistanceText.Text = "[".. game.Players.LocalPlayer:DistanceFromCharacter(Model.Position) .. "]"
+				DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(Model.Position)) .. "]"
 			end
 		end)
 	end
