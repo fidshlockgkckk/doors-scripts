@@ -49,6 +49,7 @@ local WorldToViewport = function(...) return WorldToViewportPoint(Camera, ...) e
 --// Do not touch anything under this unless you know what you are doing. \\--
 local Lib = {}
 local ESP = {}
+local Billboards = {}
 
 --// Functions \\--
 function Lib:Validate(def, opt)
@@ -118,22 +119,15 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	DistanceText.Parent = BillboardGui
 	Instance.new("UIStroke", DistanceText)
 	
-	if Model.ClassName == "Model" then
-		local PrimPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part")
-		if PrimPart then
-			BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
-				if PrimPart and PrimPart.Position and DistanceText then
-					DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(PrimPart.Position)) .. "]"
-				end
-			end)
+	local DistPart = nil
+	if Model.ClassName == "Model" then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
+	BillboardTable.DistanceHandler = RunService.RenderStepped:Connect(function()
+		if DistPart and DistPart.Position and DistanceText then
+			DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(DistPart.Position)) .. "]"
+		else
+			pcall(function() BillboardTable.DistanceHandler:Disconnect() end)	
 		end
-	else
-		BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
-			if Model and Model.Position and DistanceText then
-				DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(Model.Position)) .. "]"
-			end
-		end)
-	end
+	end)
 	
 	BillboardTable.Deleted = false
 	BillboardTable.Delete = function()
