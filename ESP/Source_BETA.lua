@@ -71,7 +71,7 @@ end
 
 function Lib:CreateBillboard(TextColor, Name, Model)
 	local BillboardTable = {}
-	local BillboardGui = Instance.new("BillboardGui")
+	local BillboardGui = Instance.new("BillboardGui", ESPBillboards)
 	local DistanceText = Instance.new("TextLabel")
 	local Text = Instance.new("TextLabel")
 	BillboardGui.Active = true
