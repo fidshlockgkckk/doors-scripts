@@ -75,10 +75,10 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	local BillboardGui = Instance.new("BillboardGui", ESPBillboards)
 	local DistanceText = Instance.new("TextLabel")
 	local Text = Instance.new("TextLabel")
-	BillboardGui.Active = true
-	BillboardGui.AlwaysOnTop = true
-	BillboardGui.ClipsDescendants = true
+	
 	BillboardGui.ResetOnSpawn = false
+	BillboardGui.Enabled = true
+    BillboardGui.AlwaysOnTop = true
 	BillboardGui.Size = UDim2.new(0, 200, 0, 50)
 	BillboardGui.StudsOffset = Vector3.new(0, 2.5, 0)
 	BillboardGui.Adornee = Model
