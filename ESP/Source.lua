@@ -65,6 +65,7 @@ function Lib:ClearESP()
     for _, v in pairs(ESP) do
         if v then
             v.Delete()
+   			      task.wait()
         end
     end
 end
