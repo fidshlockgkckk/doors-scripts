@@ -69,7 +69,7 @@ function Lib:ClearESP()
 	end
 end
 
-function Lib:CreateBillboard(TextColor, Name, Model)
+function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	local BillboardTable = {}
 	local BillboardGui = Instance.new("BillboardGui", ESPBillboards)
 	local DistanceText = Instance.new("TextLabel")
@@ -90,7 +90,7 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 	Text.TextStrokeTransparency = 0
 	Text.TextSize = 15
 	Text.RichText = true
-	Text.TextColor3 = Color3.fromRGB(0, 172, 0)
+	Text.TextColor3 = (typeof(Color) == "Color3" and Color or Color3.fromRGB(0, 172, 0))
 	Text.Text = Name
 	Text.TextWrapped = true
 	Text.Font = Enum.Font.RobotoCondensed
@@ -110,7 +110,7 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 	DistanceText.TextStrokeTransparency = 0
 	DistanceText.TextSize = 12
 	DistanceText.RichText = true
-	DistanceText.TextColor3 = Color3.fromRGB(0, 172, 0)
+	DistanceText.TextColor3 = (typeof(Color) == "Color3" and Color or Color3.fromRGB(0, 172, 0))
 	DistanceText.Text = "[9999]"
 	DistanceText.TextWrapped = true
 	DistanceText.Font = Enum.Font.RobotoCondensed
@@ -121,14 +121,14 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 	if Model.ClassName == "Model" then
 		local PrimPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part")
 		if PrimPart then
-			BillboardTable.DistanceHandler = PrimPart:GetPropertyChangedSignal("Position"):Connect(function()
+			BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
 				if PrimPart and PrimPart.Position and DistanceText then
 					DistanceText.Text = "[".. game.Players.LocalPlayer:DistanceFromCharacter(PrimPart.Position) .. "]"
 				end
 			end)
 		end
 	else
-		BillboardTable.DistanceHandler = Model:GetPropertyChangedSignal("Position"):Connect(function()
+		BillboardTable.DistanceHandler = game.Players.LocalPlayer.Character.PrimaryPart:GetPropertyChangedSignal("Position"):Connect(function()
 			if Model and Model.Position and DistanceText then
 				DistanceText.Text = "[".. game.Players.LocalPlayer:DistanceFromCharacter(Model.Position) .. "]"
 			end
@@ -147,7 +147,10 @@ function Lib:CreateBillboard(TextColor, Name, Model)
 	end
 
 	BillboardTable.ChangeColor = function(TextColor)
-		if typeof(TextColor) == "Color3" and Text then Text.TextColor3 = TextColor end
+		if typeof(TextColor) == "Color3" then
+			if Text then Text.TextColor3 = TextColor end
+			if DistanceText then DistanceText.TextColor3 = TextColor end
+		end
 	end
 
 	BillboardTable.ChangeText = function(Text_)
@@ -171,7 +174,7 @@ function Lib:HighlightESP(options)
 
 	local HighlightTable = {}
 	local Highlight = Instance.new("Highlight", ESPMain)
-	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"])
+	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"], options["TextColor"])
 
 	Highlight.FillColor = options["FillColor"]
 	Highlight.OutlineColor = options["OutlineColor"]
@@ -220,7 +223,7 @@ function Lib:AdornmentESP(options)
 
 	local AdornmentTable = {}
 	local Adornment
-	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"])
+	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"], options["TextColor"])
 
 	if options["Type"] == "Box" then
 		Adornment = Instance.new("BoxHandleAdornment", ESPAdornments)
@@ -281,7 +284,7 @@ function Lib:OutlineESP(options)
 
 	local OutlineTable = {}
 	local Outline = Instance.new("SelectionBox", ESPAdornments)
-	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"])
+	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], options["Model"], options["TextColor"])
 
 	Outline.SurfaceColor3 = options["SurfaceColor"]
 	Outline.Color3 = options["BorderColor"]
@@ -374,15 +377,18 @@ function Lib:TracerESP(options)
 			options["Model"] = nil
 			task.wait()
 
-			local s,e = pcall(function()
-				Tracer.Visible = false
-				Tracer:Remove()
-				TracerTable.Handler:Disconnect()
-				-- double check to make sure its deleted
-				Tracer.Visible = false
-				Tracer:Remove()
-			end)
-			if e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
+			for i = 1, 2 do -- idk why but this actually helps to delete tracers
+				local s,e = pcall(function()
+					Tracer.Visible = false
+					Tracer:Remove()
+					TracerTable.Handler:Disconnect()
+					-- double check to make sure its deleted
+					Tracer.Visible = false
+					Tracer:Remove()
+					Tracer = nil
+				end)
+				if e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
+			end
 
 			table.remove(ESP, table.find(ESP, TracerTable))
 			TracerTable.Deleted = true
