@@ -172,7 +172,7 @@ function Lib:HighlightESP(options)
 	local Highlight = Instance.new("Highlight", ESPMain)
 	
 	local BillboardPart = nil
-	if Model.ClassName == "Model" then BillboardPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else BillboardPart = Model end
+	if options["Model"].ClassName == "Model" then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	Highlight.FillColor = options["FillColor"]
@@ -224,7 +224,7 @@ function Lib:AdornmentESP(options)
 	local Adornment
 	
 	local BillboardPart = nil
-	if Model.ClassName == "Model" then BillboardPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else BillboardPart = Model end
+	if options["Model"].ClassName == "Model" then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	if options["Type"] == "Box" then
@@ -288,7 +288,7 @@ function Lib:OutlineESP(options)
 	local Outline = Instance.new("SelectionBox", ESPAdornments)
 	
 	local BillboardPart = nil
-	if Model.ClassName == "Model" then BillboardPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else BillboardPart = Model end
+	if options["Model"].ClassName == "Model" then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	Outline.SurfaceColor3 = options["SurfaceColor"]
