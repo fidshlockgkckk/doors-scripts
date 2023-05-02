@@ -273,9 +273,6 @@ function Lib:AdornmentESP(options)
 		if typeof(Text_) == "string" then BillboardGui.ChangeText(Text_) end
 	end
 		
-	options["Model"].Destroying:Connect(function()
-		HighlightTable.Delete()
-	end
 		
 	table.insert(ESP, AdornmentTable)
 	return AdornmentTable
@@ -329,10 +326,7 @@ function Lib:OutlineESP(options)
 	OutlineTable.ChangeText = function(Text_)
 		if typeof(Text_) == "string" then BillboardGui.ChangeText(Text_) end
 	end
-			
-	options["Model"].Destroying:Connect(function()
-		HighlightTable.Delete()
-	end
+
 
 	table.insert(ESP, OutlineTable)
 	return OutlineTable
@@ -434,9 +428,7 @@ function Lib:TracerESP(options)
 		end
 	end
 				
-	options["Model"].Destroying:Connect(function()
-		HighlightTable.Delete()
-	end
+
 
 	table.insert(ESP, TracerTable)
 	return TracerTable
