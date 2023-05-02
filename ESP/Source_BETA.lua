@@ -208,7 +208,7 @@ function Lib:HighlightESP(options)
 
 	options["Model"].Destroying:Connect(function()
 		HighlightTable.Delete()
-	end
+	end)
 		
 	table.insert(ESP, HighlightTable)
 	return HighlightTable
@@ -427,8 +427,6 @@ function Lib:TracerESP(options)
 		TracerTable.SetVisible = function()
 		end
 	end
-				
-
 
 	table.insert(ESP, TracerTable)
 	return TracerTable
