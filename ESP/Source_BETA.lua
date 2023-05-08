@@ -398,7 +398,7 @@ function Lib:TracerESP(options)
 					Tracer:Remove()
 					Tracer = nil
 				end)
-				if e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
+				if i == 1 and e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
 			end
 
 			table.remove(ESP, table.find(ESP, TracerTable))
