@@ -70,6 +70,13 @@ function Lib:ClearESP()
 			task.wait()
 		end
 	end
+	for _, v in pairs(Billboards) do
+		if v then
+			v.Delete()
+			task.wait()
+		end
+	end
+	
 end
 
 function Lib:CreateBillboard(TextColor, Name, Model, Color)
@@ -351,10 +358,13 @@ function Lib:TracerESP(options)
 		Tracer.Transparency = options["Transparency"]
 
 		TracerTable.Deleted = false;
+		
+		local DistPart = nil
+		if Model:IsA("Model") then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
 		TracerTable.Handler = RunService.RenderStepped:Connect(function()
-			if options["Model"] ~= nil and TracerTable.Vis == true and TracerTable.Deleted == false then
-				local ScreenPosition, Visible = WorldToViewport(options["Model"].Position);
-				local OPos = Camera.CFrame:pointToObjectSpace(options["Model"].Position);
+			if options["Model"] ~= nil and DistPart ~= nil and TracerTable.Vis == true and TracerTable.Deleted == false then
+				local ScreenPosition, Visible = WorldToViewport(DistPart.Position);
+				local OPos = Camera.CFrame:pointToObjectSpace(DistPart.Position);
 				if ScreenPosition.Z < 0 then
 					local AT = math.atan2(OPos.Y, OPos.X) + math.pi;
 					OPos = CFrame.Angles(0, 0, AT):vectorToWorldSpace((CFrame.Angles(0, math.rad(89.9), 0):vectorToWorldSpace(Vector3.new(0, 0, -1))));
@@ -386,6 +396,7 @@ function Lib:TracerESP(options)
 
 		TracerTable.Delete = function()
 			options["Model"] = nil
+			DistPart = nil
 			task.wait()
 
 			for i = 1, 2 do -- idk why but this actually helps to delete tracers
