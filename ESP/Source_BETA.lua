@@ -70,13 +70,13 @@ function Lib:ClearESP()
 			task.wait()
 		end
 	end
+	
 	for _, v in pairs(Billboards) do
 		if v then
 			v.Delete()
 			task.wait()
 		end
 	end
-	
 end
 
 function Lib:CreateBillboard(TextColor, Name, Model, Color)
