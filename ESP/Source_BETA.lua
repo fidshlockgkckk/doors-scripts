@@ -400,7 +400,8 @@ function Lib:TracerESP(options)
 			task.wait()
 
 			for i = 1, 2 do -- idk why but this actually helps to delete tracers
-				local s,e = pcall(function()
+				--local s,e = pcall(function()
+				pcall(function()
 					Tracer.Visible = false
 					Tracer:Remove()
 					TracerTable.Handler:Disconnect()
@@ -409,7 +410,7 @@ function Lib:TracerESP(options)
 					Tracer:Remove()
 					Tracer = nil
 				end)
-				if i == 1 and e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
+				--if i == 1 and e and not tostring(e):lower():match("object destroyed") then warn("Failed to delete Tracer:")warn(e) end
 			end
 
 			table.remove(ESP, table.find(ESP, TracerTable))
