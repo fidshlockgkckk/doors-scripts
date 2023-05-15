@@ -360,7 +360,7 @@ function Lib:TracerESP(options)
 		TracerTable.Deleted = false;
 		
 		local DistPart = nil
-		if Model:IsA("Model") then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
+		if options["Model"]:IsA("Model") then DistPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else DistPart = options["Model"] end
 		TracerTable.Handler = RunService.RenderStepped:Connect(function()
 			if options["Model"] ~= nil and DistPart ~= nil and TracerTable.Vis == true and TracerTable.Deleted == false then
 				local ScreenPosition, Visible = WorldToViewport(DistPart.Position);
