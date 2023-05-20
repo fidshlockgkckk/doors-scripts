@@ -122,7 +122,7 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	
 	local DistPart = nil
 	if Model:IsA("Model") then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
-	print(DistPart, DistanceText)
+	task.wait()
 	BillboardTable.DistanceHandler = RunService.RenderStepped:Connect(function()
 		if DistPart and DistPart.Position and DistanceText then
 			DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(DistPart.Position)) .. "]"
