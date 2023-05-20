@@ -18,21 +18,22 @@ local ESPMain_Name = "F_MAIN_FOLDER"
 local ESPBillboards_Name = "F_BILLBOARDS_FOLDER"
 local ESPAdornments_Name = "F_ADORNMENTS_FOLDER"
 local ESPFolder = CoreGui:FindFirstChild(ESPFolder_Name)
+local ESPMain = ESPFolder:FindFirstChild(ESPMain_Name)
+local ESPBillboards = ESPFolder:FindFirstChild(ESPBillboards_Name)
+local ESPAdornments = ESPFolder:FindFirstChild(ESPAdornments_Name)
+
 if ESPFolder == nil then
 	ESPFolder = Instance.new("Folder", CoreGui)
 	ESPFolder.Name = ESPFolder_Name
 end
-local ESPMain = ESPFolder:FindFirstChild(ESPMain_Name)
 if ESPMain == nil then
 	ESPMain = Instance.new("Folder", ESPFolder)
 	ESPMain.Name = ESPMain_Name
 end
-local ESPBillboards = ESPFolder:FindFirstChild(ESPBillboards_Name)
 if ESPBillboards == nil then
 	ESPBillboards = Instance.new("Folder", ESPFolder)
 	ESPBillboards.Name = ESPBillboards_Name
 end
-local ESPAdornments = ESPFolder:FindFirstChild(ESPAdornments_Name)
 if ESPAdornments == nil then
 	ESPAdornments = Instance.new("Folder", ESPFolder)
 	ESPAdornments.Name = ESPAdornments_Name
@@ -64,19 +65,12 @@ function Lib:Validate(def, opt)
 end
 
 function Lib:ClearESP()
-	for _, v in pairs(ESP) do
-		if v then
-			v.Delete()
-			task.wait()
-		end
-	end
+	ESPMain:ClearAllChildren()
+	ESPBillboards:ClearAllChildren()
+	ESPAdornments:ClearAllChildren()
 	
-	for _, v in pairs(Billboards) do
-		if v then
-			v.Delete()
-			task.wait()
-		end
-	end
+	for _, v in pairs(ESP) do pcall(function() v.Delete();task.wait() end) end
+	for _, v in pairs(Billboards) do pcall(function() v.Delete();task.wait() end) end
 end
 
 function Lib:CreateBillboard(TextColor, Name, Model, Color)
