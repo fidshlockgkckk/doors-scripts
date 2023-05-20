@@ -76,8 +76,8 @@ end
 function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	local BillboardTable = {}
 	local BillboardGui = Instance.new("BillboardGui", ESPBillboards)
-	local DistanceText = Instance.new("TextLabel")
-	local Text = Instance.new("TextLabel")
+	local DistanceText = Instance.new("TextLabel", BillboardGui)
+	local Text = Instance.new("TextLabel", BillboardGui)
 	
 	BillboardGui.ResetOnSpawn = false
 	BillboardGui.Enabled = true
@@ -99,7 +99,6 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	Text.TextWrapped = true
 	Text.Font = Enum.Font.RobotoCondensed
 	Text.TextWrap = true
-	Text.Parent = BillboardGui
 	Instance.new("UIStroke", Text)
 	
 	DistanceText.ZIndex = 0
@@ -119,11 +118,11 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	DistanceText.TextWrapped = true
 	DistanceText.Font = Enum.Font.RobotoCondensed
 	DistanceText.TextWrap = true
-	DistanceText.Parent = BillboardGui
 	Instance.new("UIStroke", DistanceText)
 	
 	local DistPart = nil
 	if Model:IsA("Model") then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
+	print(DistPart, DistanceText)
 	BillboardTable.DistanceHandler = RunService.RenderStepped:Connect(function()
 		if DistPart and DistPart.Position and DistanceText then
 			DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(DistPart.Position)) .. "]"
