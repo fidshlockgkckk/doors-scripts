@@ -73,6 +73,21 @@ function Lib:ClearESP()
 	for _, v in pairs(Billboards) do pcall(function() v.Delete();task.wait() end) end
 end
 
+function has_property = function(instance, property)local clone = instance;return (pcall(function() return clone[property] end))end;
+function GetBillboardPart(Model)
+	local DistPart = nil
+		
+	if Model:IsA("Model") then 
+		DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") or Model:FindFirstChildWhichIsA("BasePart")  
+	elseif has_property(Model, "Position") then
+		DistPart = Model 
+	else
+		DistPart = Model:FindFirstChildWhichIsA("Part") or Model:FindFirstChildWhichIsA("BasePart") 
+	end
+		
+	return DistPart
+end
+
 function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	local BillboardTable = {}
 	local BillboardGui = Instance.new("BillboardGui", ESPBillboards)
@@ -120,8 +135,7 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	DistanceText.TextWrap = true
 	Instance.new("UIStroke", DistanceText)
 	
-	local DistPart = nil
-	if Model:IsA("Model") then DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") else DistPart = Model end
+	local DistPart = GetBillboardPart(Model)
 	task.spawn(function()
 		task.wait(0.1)
 		if BillboardTable.Deleted ~= true then
@@ -175,8 +189,7 @@ function Lib:HighlightESP(options)
 	local HighlightTable = {}
 	local Highlight = Instance.new("Highlight", ESPMain)
 	
-	local BillboardPart = nil
-	if options["Model"]:IsA("Model") then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
+	local BillboardPart = GetBillboardPart(options["Model"])
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	Highlight.FillColor = options["FillColor"]
@@ -231,8 +244,7 @@ function Lib:AdornmentESP(options)
 	local AdornmentTable = {}
 	local Adornment
 	
-	local BillboardPart = nil
-	if options["Model"]:IsA("Model") then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
+	local BillboardPart = GetBillboardPart(options["Model"])
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	if options["Type"] == "Box" then
@@ -296,8 +308,7 @@ function Lib:OutlineESP(options)
 	local OutlineTable = {}
 	local Outline = Instance.new("SelectionBox", ESPAdornments)
 	
-	local BillboardPart = nil
-	if options["Model"]:IsA("Model") then BillboardPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else BillboardPart = options["Model"] end
+	local BillboardPart = GetBillboardPart(options["Model"])
 	local BillboardGui = Lib:CreateBillboard(options["TextColor"], options["Name"], BillboardPart, options["TextColor"])
 
 	Outline.SurfaceColor3 = options["SurfaceColor"]
@@ -356,8 +367,7 @@ function Lib:TracerESP(options)
 
 		TracerTable.Deleted = false;
 		
-		local DistPart = nil
-		if options["Model"]:IsA("Model") then DistPart = options["Model"].PrimaryPart or options["Model"]:FindFirstChildWhichIsA("Part") else DistPart = options["Model"] end
+		local DistPart = GetBillboardPart(options["Model"])
 		TracerTable.Handler = RunService.RenderStepped:Connect(function()
 			if options["Model"] ~= nil and DistPart ~= nil and TracerTable.Vis == true and TracerTable.Deleted == false then
 				local ScreenPosition, Visible = WorldToViewport(DistPart.Position);
