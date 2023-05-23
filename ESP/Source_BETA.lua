@@ -18,14 +18,14 @@ local ESPMain_Name = "F_MAIN_FOLDER"
 local ESPBillboards_Name = "F_BILLBOARDS_FOLDER"
 local ESPAdornments_Name = "F_ADORNMENTS_FOLDER"
 local ESPFolder = CoreGui:FindFirstChild(ESPFolder_Name)
-local ESPMain = ESPFolder:FindFirstChild(ESPMain_Name)
-local ESPBillboards = ESPFolder:FindFirstChild(ESPBillboards_Name)
-local ESPAdornments = ESPFolder:FindFirstChild(ESPAdornments_Name)
-
 if ESPFolder == nil then
 	ESPFolder = Instance.new("Folder", CoreGui)
 	ESPFolder.Name = ESPFolder_Name
 end
+
+local ESPMain = ESPFolder:FindFirstChild(ESPMain_Name)
+local ESPBillboards = ESPFolder:FindFirstChild(ESPBillboards_Name)
+local ESPAdornments = ESPFolder:FindFirstChild(ESPAdornments_Name)
 if ESPMain == nil then
 	ESPMain = Instance.new("Folder", ESPFolder)
 	ESPMain.Name = ESPMain_Name
@@ -73,7 +73,9 @@ function Lib:ClearESP()
 	for _, v in pairs(Billboards) do pcall(function() v.Delete();task.wait() end) end
 end
 
-function has_property = function(instance, property)local clone = instance;return (pcall(function() return clone[property] end))end;
+function has_property(instance, property)
+	local clone = instance;return (pcall(function() return clone[property] end))
+end;
 function GetBillboardPart(Model)
 	local DistPart = nil
 		
