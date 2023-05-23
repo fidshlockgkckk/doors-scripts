@@ -9,6 +9,8 @@ _____ ___  ________  ___  ___  ___       ________  ________  ___  __    _______ 
                  \|_________|                                                           \|_________|
                                 ESP Library by fishlock#2610 and mstudio45#9016
 
+                         !!!!!!!!!!!!!!!!!!!!!!!!!!VERY OUTDATED!!!!!!!!!!!!!!!!!!!!!!!
+                     USE https://github.com/fishlockscripts/Doors/blob/main/ESP/Source_BETA.lua
 --]]
 local CoreGUI = game:GetService("CoreGui");
 local CoreGui = CoreGUI
