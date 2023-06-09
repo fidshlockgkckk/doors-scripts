@@ -78,7 +78,11 @@ function has_property(instance, property)
 end;
 function GetBillboardPart(Model)
 	local DistPart = nil
-		
+	
+	if Model == nil or not Model then
+		return nil
+	end
+	
 	if Model:IsA("Model") then 
 		DistPart = Model.PrimaryPart or Model:FindFirstChildWhichIsA("Part") or Model:FindFirstChildWhichIsA("BasePart")  
 	elseif has_property(Model, "Position") then
@@ -140,14 +144,16 @@ function Lib:CreateBillboard(TextColor, Name, Model, Color)
 	local DistPart = GetBillboardPart(Model)
 	task.spawn(function()
 		task.wait(0.1)
-		if BillboardTable.Deleted ~= true then
-			BillboardTable.DistanceHandler = RunService.RenderStepped:Connect(function()
-				if DistPart and DistPart.Position and DistanceText then
-					DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(DistPart.Position)) .. "]"
-				else
-					pcall(function() BillboardTable.DistanceHandler:Disconnect() end)	
-				end
-			end)
+		if DistPart then
+			if BillboardTable.Deleted ~= true then
+				BillboardTable.DistanceHandler = RunService.RenderStepped:Connect(function()
+					if DistPart and DistPart.Position and DistanceText then
+						DistanceText.Text = "[".. math.round(game.Players.LocalPlayer:DistanceFromCharacter(DistPart.Position)) .. "]"
+					else
+						pcall(function() BillboardTable.DistanceHandler:Disconnect() end)	
+					end
+				end)
+			end
 		end
 	end)
 	
